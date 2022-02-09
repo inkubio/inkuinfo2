@@ -1,0 +1,111 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    padding: 0;
+    margin: 0 1em 1em 1em;
+    width: calc(100vw - 2em);
+    height: calc(100vh - 1em);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 5vh repeat(3, 1fr);
+    grid-template-areas:
+        "title title"
+        "event1 event2"
+        "event3 event4"
+        "event5 event6";
+    column-gap: 1em;
+    row-gap: 1em;
+    background: #fff;
+}
+.event {
+    background-color: #fff;
+    padding: 1em 2em;
+    text-align: center;
+    vertical-align: center;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas:
+        "date time"
+        "info info";
+}
+.date {
+    grid-area: date;
+    display: flex;
+    flex-flow: column;
+    text-align: start;
+
+}
+.month {
+    font-size: 4vw;
+}
+.day {
+    font-size: 4em;
+}
+.weekday {
+    font-size: 3em;
+}
+.time {
+    grid-area: time;
+    display: flex;
+    flex-flow: column;
+    text-align: start;
+    font-size: 4vw;
+}
+.info {
+    grid-area: info;
+    display: flex;
+    flex-flow: column;
+    justify-content: end;
+    text-align: start;
+}
+.name {
+    font-size: 3vw;
+}
+.location {
+ font-size: 2vw;
+}
+
+#title {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    grid-area: title;
+}
+#clock {
+    text-align: center;
+    align-self: start;
+    font-size: 4vh;
+    margin-top: 1rem;
+}
+h1 {
+    text-align: center;
+    align-self: start;
+    font-size: 4vh;
+    margin-top: 1rem;
+}
+#event1 {
+    grid-area: event1;
+    background-color: white;
+}
+#event2 {
+    grid-area: event2;
+    background-color: white;
+}
+#event3 {
+    grid-area: event3;
+    background-color: white;
+}
+#event4 {
+    grid-area: event4;
+    background-color: white;
+}
+#event5 {
+    grid-area: event5;
+    background-color: white;
+}
+#event6 {
+    grid-area: event6;
+    background-color: white;
+}

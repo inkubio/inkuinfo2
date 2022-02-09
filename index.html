@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inkuinfo</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <div id="title">
+        <h1>Tulevia tapahtumia</h1>
+        <p id="clock">00:00</p>
+    </div>
+    <div id="event1" class="event"></div>
+    <div id="event2" class="event"></div>
+    <div id="event3" class="event"></div>
+    <div id="event4" class="event"></div>
+    <div id="event5" class="event"></div>
+    <div id="event6" class="event"></div>
+
+    <template is="auto-binding" id="event">
+        <div class="date">
+            <span class="month">Tammikuu</span>
+            <span class="day">20</span>
+            <span class="weekday">Torstai</span>
+        </div>
+        <div class="time">
+            <div class="time_field">14:00 - 15:00</div>
+        </div>
+        <div class="info">
+            <span class="name">Wappusitsit</span>
+            <span class="location">Smökki, JMT 5</span>
+        </div>
+    </template>
+</body>
+</html>
