@@ -79,6 +79,7 @@ function updateCalendar() {
             name.textContent = item["summary"]
             location.textContent = item["location"]
 
+            // Remove previous content and update with new data
             event.innerHTML = ""
             event.appendChild(clone);
         })

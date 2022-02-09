@@ -25,7 +25,7 @@ body {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 60% 40%;
     grid-template-areas:
         "date time"
         "info info";
@@ -39,12 +39,18 @@ body {
 }
 .month {
     font-size: 4vw;
+    height: 4vw;
+    margin: 0;
 }
 .day {
-    font-size: 4em;
+    font-size: 4vw;
+    height: 4vw;
+    margin: 0;
 }
 .weekday {
-    font-size: 3em;
+    font-size: 3vw;
+    height: 4vw;
+    margin: 0;
 }
 .time {
     grid-area: time;
@@ -52,6 +58,9 @@ body {
     flex-flow: column;
     text-align: start;
     font-size: 4vw;
+}
+.time_field {
+    margin: 0;
 }
 .info {
     grid-area: info;
@@ -62,9 +71,11 @@ body {
 }
 .name {
     font-size: 3vw;
+    margin: 0;
 }
 .location {
- font-size: 2vw;
+    font-size: 2vw;
+    margin: 0;
 }
 
 #title {
