@@ -1,4 +1,5 @@
-import {api_key} from "./secret.js";
+import {api_key, calendar_id} from "./secret.js";
+
 const monthNames = ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu",
                     "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"];
 const weekdays = ["Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai"];
@@ -20,7 +21,7 @@ let state = {
 let start_date = Date.now()
 
 async function loadEvents() {
-    let calendar_url = new URL("https://www.googleapis.com/calendar/v3/calendars/p4r635n487mr7u9cje9n6985e0@group.calendar.google.com/events")
+    let calendar_url = new URL("https://www.googleapis.com/calendar/v3/calendars/" + calendar_id + "/events")
     let minDate = new Date(start_date);
     minDate.setHours(0);
     minDate.setMinutes(0);
@@ -33,20 +34,19 @@ async function loadEvents() {
         singleEvents: true,
     }
     calendar_url.search = new URLSearchParams(params).toString()
-    let new_data = await fetch(calendar_url)
+    state.data = await fetch(calendar_url)
         .then(response => response.json())
         .then(data => data["items"])
-
-    state.data = new_data
 }
 function updateCalendar() {
     if ('content' in document.createElement('template')) {
         let calendar_items = state.data;
 
-        console.log(calendar_items)
         let events = ["#event1", "#event2", "#event3", "#event4", "#event5", "#event6"];
         events.forEach((e, i) => {
             let event = document.querySelector(e);
+            event.innerHTML = "";
+
             let template = document.querySelector("#event");
 
             let clone = template.content.cloneNode(true);
@@ -55,32 +55,49 @@ function updateCalendar() {
             let day = clone.querySelector(".day");
             let weekday = clone.querySelector(".weekday");
 
-            let time = clone.querySelector(".time_field");
+            let start_time = clone.querySelector(".start_time_field");
+            let end_time = clone.querySelector(".end_time_field");
 
             let name = clone.querySelector(".name");
             let location = clone.querySelector(".location");
 
             let item = calendar_items[i]
 
+            // If calendar item does not exist return
+            if (item == null) {
+                return
+            }
+
             let start_date = new Date(item.start.dateTime || item.start.date)
             let end_date = new Date(item.end.dateTime || item.end.date)
 
             month.textContent = monthNames[start_date.getMonth()];
 
-            day.textContent = start_date.getDate() == end_date.getDate() ? start_date.getDate()
-                : start_date.getDate() + " - " + end_date.getDate()
+            // If this field exist, it is a whole day event (no time defined)
+            let isWholeDay = !!item.start.date;
+
+            // Formatting time and day differently depending if it is a whole day event
+            if (isWholeDay) {
+                day.textContent = (end_date.getTime() - start_date.getTime() === 24*60*60*1000) ? start_date.getDate()
+                    : start_date.getDate() + " - " + (end_date.getDate()-1);
+                start_time.textContent = "";
+                end_time.textContent = "";
+            } else {
+                day.textContent = start_date.getDate() === end_date.getDate() ? start_date.getDate()
+                    : start_date.getDate() + " - " + end_date.getDate();
+                start_time.textContent = ("0" + start_date.getHours()).slice(-2) + ":"
+                    + ("0" + start_date.getMinutes()).slice(-2) + " - ";
+
+                end_time.textContent = ("0" + end_date.getHours()).slice(-2) + ":"
+                    + ("0" + end_date.getMinutes()).slice(-2)
+            }
+
             weekday.textContent = weekdays[start_date.getDay()]
 
-            time.textContent = ("0" + start_date.getHours()).slice(-2) + ":"
-                + ("0" + start_date.getMinutes()).slice(-2) + " - "
-                + ("0" + end_date.getHours()).slice(-2) + ":"
-                + ("0" + end_date.getMinutes()).slice(-2)
-
             name.textContent = item["summary"]
-            location.textContent = item["location"]
+            location.textContent = item["location"]?.split(",")[0]
 
-            // Remove previous content and update with new data
-            event.innerHTML = ""
+            // Update with new data
             event.appendChild(clone);
         })
 
@@ -98,5 +115,5 @@ function updateClock() {
 window.addEventListener('DOMContentLoaded', loadEvents)
 window.addEventListener('updateEvents', updateCalendar)
 
-setInterval(loadEvents, 1000*60*10) // Poll every 10min
+setInterval(loadEvents, 1000*10) // Poll every 10 sec
 setInterval(updateClock, 1000)
