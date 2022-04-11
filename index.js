@@ -37,6 +37,7 @@ async function loadEvents() {
     state.data = await fetch(calendar_url)
         .then(response => response.json())
         .then(data => data["items"])
+    setTimeout(loadEvents, 10*1000)
 }
 function updateCalendar() {
     if ('content' in document.createElement('template')) {
@@ -115,5 +116,5 @@ function updateClock() {
 window.addEventListener('DOMContentLoaded', loadEvents)
 window.addEventListener('updateEvents', updateCalendar)
 
-setInterval(loadEvents, 1000*10) // Poll every 10 sec
+setTimeout(loadEvents, 10*1000)
 setInterval(updateClock, 1000)
