@@ -9,9 +9,9 @@ const updateEvents = new Event('updateEvents');
 let state = {
     _data: {},
     set data(val) {
-        let valueChanged = JSON.stringify(this._data) !== JSON.stringify(val)
+        //let valueChanged = JSON.stringify(this._data) !== JSON.stringify(val)
         this._data = val
-        if (valueChanged) {window.dispatchEvent(updateEvents)}
+        window.dispatchEvent(updateEvents)
     },
     get data() {
         return this._data
