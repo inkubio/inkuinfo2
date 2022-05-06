@@ -34,9 +34,17 @@ async function loadEvents() {
         singleEvents: true,
     }
     calendar_url.search = new URLSearchParams(params).toString()
-    state.data = await fetch(calendar_url)
-        .then(response => response.json())
-        .then(data => data["items"])
+    try {
+        state.data = await fetch(calendar_url)
+            .then(response => response.json())
+            .then(data => data["items"])
+
+        if (!state.data.ok) {
+            throw new Error("Response failed")
+        }
+    } catch (err) {
+        console.log(err)
+    }
     setTimeout(loadEvents, 10*1000)
 }
 function updateCalendar() {
