@@ -35,13 +35,14 @@ async function loadEvents() {
     }
     calendar_url.search = new URLSearchParams(params).toString()
     try {
-        state.data = await fetch(calendar_url)
-            .then(response => response.json())
-            .then(data => data["items"])
+        const data = await fetch(calendar_url)
 
-        if (!state.data.ok) {
-            throw new Error("Response failed")
+        if (!data.ok) {
+            console.log("Response failed", data)
         }
+
+        state.data = await data.json().then(res => res["items"])
+
     } catch (err) {
         console.log(err)
     }
