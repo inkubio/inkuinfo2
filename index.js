@@ -125,5 +125,4 @@ function updateClock() {
 window.addEventListener('DOMContentLoaded', loadEvents)
 window.addEventListener('updateEvents', updateCalendar)
 
-setTimeout(loadEvents, 10*1000)
 setInterval(updateClock, 1000)
