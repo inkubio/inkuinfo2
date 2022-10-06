@@ -39,6 +39,7 @@ async function loadEvents() {
 
         if (!data.ok) {
             console.log("Response failed", data)
+            return
         }
 
         state.data = await data.json().then(res => res["items"])
@@ -46,7 +47,6 @@ async function loadEvents() {
     } catch (err) {
         console.log(err)
     }
-    setTimeout(loadEvents, 10*1000)
 }
 function updateCalendar() {
     if ('content' in document.createElement('template')) {
@@ -126,3 +126,4 @@ window.addEventListener('DOMContentLoaded', loadEvents)
 window.addEventListener('updateEvents', updateCalendar)
 
 setInterval(updateClock, 1000)
+setInterval(loadEvents, 10*1000)
