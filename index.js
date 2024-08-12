@@ -1,4 +1,5 @@
-import {api_key, calendar_id} from "./secret.js";
+const api_key = process.env.API_KEY
+const calendar_id = process.env.CALENDAR_ID
 
 const monthNames = ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu",
                     "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"];
