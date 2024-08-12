@@ -1,5 +1,5 @@
-const api_key = process.env.API_KEY
-const calendar_id = process.env.CALENDAR_ID
+const api_key = "AIzaSyBHi1Wmyer2F6uyFS7fdTQiVAOYEEbr0ew"
+const calendar_id = "c_971e17b8671a195c1685202eb6c52d54bf2617755521c0b832b8960c598756bf@group.calendar.google.com"
 
 const monthNames = ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu",
                     "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"];
